@@ -51,22 +51,26 @@ public class RecentSelections : EditorWindow
         {
             var recentSelection = recentSelections[i];
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(i.ToString(), labelWidth);
+            GUILayout.Label(i.ToString(), labelWidth);
             EditorGUILayout.ObjectField(recentSelection, typeof(Object), true);
 
-            if (i == 0)
+            var e = Event.current;
+            if (GUILayoutUtility.GetLastRect().Contains(e.mousePosition) && e.type == EventType.MouseDrag)
             {
-                GUI.enabled = false;
+                DragAndDrop.PrepareStartDrag();
+                DragAndDrop.objectReferences = new[] { recentSelection };
+                DragAndDrop.StartDrag("drag");
+                Event.current.Use();
             }
 
-            if (GUILayout.Button(">", buttonWidth))
+            if (GUILayout.Button("▼", buttonWidth))
+            {
+                EditorGUIUtility.PingObject(recentSelection);
+            }
+
+            if (GUILayout.Button("►", buttonWidth))
             {
                 Selection.activeObject = recentSelection;
-            }
-
-            if (i == 0)
-            {
-                GUI.enabled = true;
             }
 
             EditorGUILayout.EndHorizontal();

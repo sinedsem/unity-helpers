@@ -17,21 +17,7 @@ namespace SharedTools
 
         private void OnEnable()
         {
-            so = GetStorage();
-        }
-
-        private static Bookmarks GetStorage()
-        {
-            var guids = AssetDatabase.FindAssets("t:" + typeof(Bookmarks));
-            if (guids.Length == 0)
-            {
-                var bookmarks = CreateInstance<Bookmarks>();
-                AssetDatabase.CreateAsset(bookmarks, "Assets/Bookmarks.asset");
-                Debug.Log("Created new bookmarks storage: " + AssetDatabase.GetAssetPath(bookmarks));
-                return bookmarks;
-            }
-
-            return AssetDatabase.LoadAssetAtPath<Bookmarks>(AssetDatabase.GUIDToAssetPath(guids[0]));
+            so = SoStorage.GetStorage<Bookmarks>();
         }
 
         private void OnGUI()
@@ -124,13 +110,13 @@ namespace SharedTools
                     {
                         GUI.enabled = false;
                     }
-                    
+
                     if (GUILayout.Button("►", buttonWidth))
                     {
                         ScrollAssetsViewToTheBottom();
                         Selection.activeObject = bookmark;
                     }
-                    
+
                     if (Selection.activeObject == bookmark)
                     {
                         GUI.enabled = true;
@@ -209,7 +195,7 @@ namespace SharedTools
                 return;
             }
 
-            var bookmarks = GetStorage();
+            var bookmarks = SoStorage.GetStorage<Bookmarks>();
             bookmarks.List.Add(o);
             EditorUtility.SetDirty(bookmarks);
             AssetDatabase.SaveAssetIfDirty(bookmarks);

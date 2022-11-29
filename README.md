@@ -1,10 +1,10 @@
 # unity-helpers
 Useful unity scripts for everyone
-### Recent Selections
-An editor window which shows recent selections both in assets and scene hierarchy and allows to quickly re-select them
+### Recent Selections & Bookmarks
+Recent Selections - an editor window which shows recent selections both in assets and scene hierarchy and allows to quickly re-select them
+Bookmarks - an editor window which allows to save your favourite assets for quick navigation
 Usage  
-1) Copy-paste [RecentSelections.cs](RecentSelections.cs) file to your project
-2) Open tool window from Tools/Recent Selections menu item
-3) Enjoy
-
-![recent selections gif](https://github.com/sinedsem/unity-helpers/blob/main/media/recent-selections.gif?raw=true)
+1) Copy-paste Editor folder to your project
+2) Open tool window from Tools/[Recent Selections|Bookmarks] menu item
+3) Use "Add to bookmarks" context menu to add Bookmarks 
+4) Enjoy

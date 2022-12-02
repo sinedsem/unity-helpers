@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -20,6 +21,11 @@ public class RecentSelectionsWindow : EditorWindow
     private void OnDisable()
     {
         Selection.selectionChanged -= HandleSelectionChange;
+        if (storage != null)
+        {
+            EditorUtility.SetDirty(storage);
+            AssetDatabase.SaveAssets();
+        }
     }
 
     private void HandleSelectionChange()
@@ -74,6 +80,12 @@ public class RecentSelectionsWindow : EditorWindow
 
     private void OnGUI()
     {
+        if (storage == null || storage.Values == null)
+        {
+            storage = SoStorage.GetStorage<RecentSelections>();
+            storage.Values ??= new List<RecentSelection>();
+        }
+
         storage.Values.RemoveAll(o => o == null);
 
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);

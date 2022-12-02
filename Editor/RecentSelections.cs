@@ -12,5 +12,5 @@ public class RecentSelection
 
 public class RecentSelections : ScriptableObject
 {
-    [field: SerializeField] public List<RecentSelection> Values { get; private set; } = new();
+    [field: SerializeField] public List<RecentSelection> Values { get; set; }
 }

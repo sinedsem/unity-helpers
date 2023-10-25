@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace SharedTools
+namespace SpellSinger.BookmarksAndSelections
 {
     public class BookmarksWindow : EditorWindow
     {

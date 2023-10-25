@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Bookmarks", menuName = "Bookmarks")]
-public class Bookmarks : ScriptableObject
+namespace SpellSinger.BookmarksAndSelections
 {
-    [SerializeField]
-    private List<Object> bookmarks = new();
-        
-    public List<Object> List
+    public class Bookmarks : ScriptableObject
     {
-        get => bookmarks;
-        set => bookmarks = value;
+        [SerializeField]
+        private List<Object> bookmarks = new();
+            
+        public List<Object> List
+        {
+            get => bookmarks;
+            set => bookmarks = value;
+        }
     }
 }

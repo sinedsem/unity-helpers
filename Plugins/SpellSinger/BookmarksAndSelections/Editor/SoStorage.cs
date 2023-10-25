@@ -1,19 +1,22 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-public static class SoStorage
+namespace SpellSinger.BookmarksAndSelections
 {
-    public static T GetStorage<T>() where T : ScriptableObject
+    public static class SoStorage
     {
-        var guids = AssetDatabase.FindAssets("t:" + typeof(T));
-        if (guids.Length == 0)
+        public static T GetStorage<T>() where T : ScriptableObject
         {
-            var storage = ScriptableObject.CreateInstance<T>();
-            AssetDatabase.CreateAsset(storage, $"Assets/{typeof(T).Name}.asset");
-            Debug.Log("Created new storage: " + AssetDatabase.GetAssetPath(storage));
-            return storage;
+            var guids = AssetDatabase.FindAssets("t:" + typeof(T));
+            if (guids.Length == 0)
+            {
+                var storage = ScriptableObject.CreateInstance<T>();
+                AssetDatabase.CreateAsset(storage, $"Assets/{typeof(T).Name}.asset");
+                Debug.Log("Created new storage: " + AssetDatabase.GetAssetPath(storage));
+                return storage;
+            }
+    
+            return AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guids[0]));
         }
-
-        return AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guids[0]));
     }
 }

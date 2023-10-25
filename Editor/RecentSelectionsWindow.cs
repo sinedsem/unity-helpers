@@ -21,7 +21,7 @@ public class RecentSelectionsWindow : EditorWindow
 
     private Vector2 scrollPos;
 
-    [SerializeField] private List<RecentSelection> values;
+    [SerializeField] private List<RecentSelection> values = new();
 
     public static RecentSelectionsWindow Instance { get; private set; }
 
@@ -76,7 +76,14 @@ public class RecentSelectionsWindow : EditorWindow
             values.RemoveAt(index);
         }
 
-        values.Insert(0, selection);
+        if (selection.Pinned)
+        {
+            values.Insert(0, selection);
+        }
+        else
+        {
+            values.Insert(values.TakeWhile(s => s.Pinned).Count(), selection);
+        }
 
         var i = 0;
         while (values.Count > MaxHistory)
@@ -116,6 +123,7 @@ public class RecentSelectionsWindow : EditorWindow
             if (GUILayout.Button(recentSelection.Pinned ? "★" : ".", buttonWidth))
             {
                 recentSelection.Pinned = !recentSelection.Pinned;
+                AddToList(recentSelection);
             }
 
             if (obj != null)

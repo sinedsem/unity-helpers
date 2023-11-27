@@ -1,3 +1,3 @@
 # Deprecated
 
-Moved to https://github.com/sinedsem/bookmarks-and-selections
+Moved to https://github.com/SpellSingerGames/bookmarks-and-selections
